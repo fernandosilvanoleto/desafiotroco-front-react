@@ -48,6 +48,7 @@ export default function ChangeCalculator() {
             type="text"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
+            required
             placeholder="Digite o nome"
           />
         </div>
@@ -58,6 +59,7 @@ export default function ChangeCalculator() {
             type="number"
             step="0.01"
             value={purchaseAmount}
+            required
             onChange={(e) => setPurchaseAmount(e.target.value)}
           />
         </div>
@@ -68,6 +70,7 @@ export default function ChangeCalculator() {
             type="number"
             step="0.01"
             value={amountPaid}
+            required
             onChange={(e) => setAmountPaid(e.target.value)}
           />
         </div>
