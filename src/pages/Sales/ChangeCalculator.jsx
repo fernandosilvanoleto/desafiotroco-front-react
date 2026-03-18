@@ -1,9 +1,12 @@
-import { calculateChange } from "../services/salesServices";
-import CalculateChangeRequest from "../models/CalculateChangeRequest";
+import { calculateChange } from "../../services/salesServices";
+import CalculateChangeRequest from "../../models/CalculateChangeRequest";
 import { useState } from "react";
-import "./ChangeCalculator.css";
+import "../../components/ChangeCalculator.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ChangeCalculator() {
+
+  const navigate = useNavigate();
 
   const [customerName, setCustomerName] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState("");
@@ -27,24 +30,6 @@ export default function ChangeCalculator() {
       const result = await calculateChange(request);
 
       setResult(result);
-
-      /*
-      console.log("===== RESULTADO DO TROCO =====");
-
-      console.log("Status:", result.statusPayment);
-      console.log("Cliente:", result.customerName);
-      console.log("Compra:", result.purchaseAmount);
-      console.log("Pago:", result.amountPaid);
-      console.log("Troco:", result.changeAmount);
-
-      console.log("Itens do troco:");
-
-      result.changeMoneyItems.forEach(item => {
-        console.log(
-          `${item.quantity} ${item.typeMoney} de R$ ${item.value}`
-        );
-      });
-      */
 
     } catch (error) {
       setResult(null); // limpa resultado
@@ -91,6 +76,14 @@ export default function ChangeCalculator() {
           Calcular Troco
         </button>
 
+        <button 
+            type="button" 
+            onClick={() => navigate("/")}
+            className="back-button"
+          >
+            Voltar
+          </button>
+
       </form>
 
       {error && (
@@ -104,6 +97,7 @@ export default function ChangeCalculator() {
 
           <h3>Cálculo de Troco</h3>
 
+          <p><strong>Cliente:</strong> {result.customerName} </p>
           <p><strong>Valor da Compra:</strong> R$ {result.purchaseAmount.toFixed(2)} </p>
           <p><strong>Valor Pago:</strong> R$ {result.amountPaid.toFixed(2)} </p>
           <p><strong>Troco Total:</strong> R$ {result.changeAmount.toFixed(2)} </p>
